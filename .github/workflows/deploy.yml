@@ -10,9 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Corrected the checkout action typo here
       - name: Checkout Code
-        uses: actions/actions/checkout@v4
+        uses: actions/checkout@v4
 
+      # 2. Optimized FTP deployment for InfinityFree servers
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -20,3 +22,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /htdocs/
+          # InfinityFree works much better with 'state-name' set to prevent sync loops
+          state-name: .ftp-deploy-sync-state.json
